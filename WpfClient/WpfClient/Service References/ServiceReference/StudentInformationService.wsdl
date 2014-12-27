@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://service.notification.rit.edu/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="StudentInformationService" targetNamespace="http://service.notification.rit.edu/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://ec2-54-205-23-50.compute-1.amazonaws.com:8080/SIS/StudentInformationService?xsd=1" namespace="http://service.notification.rit.edu/" />
+    </xsd:schema>
+  </types>
+  <message name="getClassSubscription">
+    <part name="parameters" element="tns:getClassSubscription" />
+  </message>
+  <message name="getClassSubscriptionResponse">
+    <part name="parameters" element="tns:getClassSubscriptionResponse" />
+  </message>
+  <message name="getClassEnrollement">
+    <part name="parameters" element="tns:getClassEnrollement" />
+  </message>
+  <message name="getClassEnrollementResponse">
+    <part name="parameters" element="tns:getClassEnrollementResponse" />
+  </message>
+  <message name="getStudentEnrollement">
+    <part name="parameters" element="tns:getStudentEnrollement" />
+  </message>
+  <message name="getStudentEnrollementResponse">
+    <part name="parameters" element="tns:getStudentEnrollementResponse" />
+  </message>
+  <message name="getStudentSubscription">
+    <part name="parameters" element="tns:getStudentSubscription" />
+  </message>
+  <message name="getStudentSubscriptionResponse">
+    <part name="parameters" element="tns:getStudentSubscriptionResponse" />
+  </message>
+  <message name="getClassSchedules">
+    <part name="parameters" element="tns:getClassSchedules" />
+  </message>
+  <message name="getClassSchedulesResponse">
+    <part name="parameters" element="tns:getClassSchedulesResponse" />
+  </message>
+  <message name="getStudentCourses">
+    <part name="parameters" element="tns:getStudentCourses" />
+  </message>
+  <message name="getStudentCoursesResponse">
+    <part name="parameters" element="tns:getStudentCoursesResponse" />
+  </message>
+  <message name="getStudentProfile">
+    <part name="parameters" element="tns:getStudentProfile" />
+  </message>
+  <message name="getStudentProfileResponse">
+    <part name="parameters" element="tns:getStudentProfileResponse" />
+  </message>
+  <message name="getClassScheduleForToday">
+    <part name="parameters" element="tns:getClassScheduleForToday" />
+  </message>
+  <message name="getClassScheduleForTodayResponse">
+    <part name="parameters" element="tns:getClassScheduleForTodayResponse" />
+  </message>
+  <message name="subscribe">
+    <part name="parameters" element="tns:subscribe" />
+  </message>
+  <message name="subscribeResponse">
+    <part name="parameters" element="tns:subscribeResponse" />
+  </message>
+  <message name="subscribe2">
+    <part name="parameters" element="tns:subscribe2" />
+  </message>
+  <message name="subscribe2Response">
+    <part name="parameters" element="tns:subscribe2Response" />
+  </message>
+  <portType name="StudentInformationService">
+    <operation name="getClassSubscription">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassSubscriptionRequest" message="tns:getClassSubscription" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassSubscriptionResponse" message="tns:getClassSubscriptionResponse" />
+    </operation>
+    <operation name="getClassEnrollement">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassEnrollementRequest" message="tns:getClassEnrollement" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassEnrollementResponse" message="tns:getClassEnrollementResponse" />
+    </operation>
+    <operation name="getStudentEnrollement">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentEnrollementRequest" message="tns:getStudentEnrollement" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentEnrollementResponse" message="tns:getStudentEnrollementResponse" />
+    </operation>
+    <operation name="getStudentSubscription">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentSubscriptionRequest" message="tns:getStudentSubscription" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentSubscriptionResponse" message="tns:getStudentSubscriptionResponse" />
+    </operation>
+    <operation name="getClassSchedules">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassSchedulesRequest" message="tns:getClassSchedules" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassSchedulesResponse" message="tns:getClassSchedulesResponse" />
+    </operation>
+    <operation name="getStudentCourses">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentCoursesRequest" message="tns:getStudentCourses" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentCoursesResponse" message="tns:getStudentCoursesResponse" />
+    </operation>
+    <operation name="getStudentProfile">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentProfileRequest" message="tns:getStudentProfile" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getStudentProfileResponse" message="tns:getStudentProfileResponse" />
+    </operation>
+    <operation name="getClassScheduleForToday">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassScheduleForTodayRequest" message="tns:getClassScheduleForToday" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/getClassScheduleForTodayResponse" message="tns:getClassScheduleForTodayResponse" />
+    </operation>
+    <operation name="subscribe">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/subscribeRequest" message="tns:subscribe" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/subscribeResponse" message="tns:subscribeResponse" />
+    </operation>
+    <operation name="subscribe2">
+      <input wsam:Action="http://service.notification.rit.edu/StudentInformationService/subscribe2Request" message="tns:subscribe2" />
+      <output wsam:Action="http://service.notification.rit.edu/StudentInformationService/subscribe2Response" message="tns:subscribe2Response" />
+    </operation>
+  </portType>
+  <binding name="StudentInformationServicePortBinding" type="tns:StudentInformationService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getClassSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClassEnrollement">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getStudentEnrollement">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getStudentSubscription">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClassSchedules">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getStudentCourses">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getStudentProfile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClassScheduleForToday">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="subscribe">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="subscribe2">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="StudentInformationService">
+    <port name="StudentInformationServicePort" binding="tns:StudentInformationServicePortBinding">
+      <soap:address location="http://ec2-54-205-23-50.compute-1.amazonaws.com:8080/SIS/StudentInformationService" />
+    </port>
+  </service>
+</definitions>

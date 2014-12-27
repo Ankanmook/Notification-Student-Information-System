@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<flow name="NotificationFlow" doc:name="NotificationFlow">
+		<vm:inbound-endpoint path="onehourqueue" doc:name="VM" />
+		<!-- <echo-component doc:name="One hour queue arrival" /> -->
+		<!-- <logger level="INFO" doc:name="Logger" /> -->
+		<foreach doc:name="For Each">
+
+			<component class="edu.rit.notification.model.MessageBuilder"
+				doc:name="Create AlertObjects">
+				<binding interface="edu.rit.notification.binding.SISSOAPInterface"
+					method="getClassSubscription">
+					<vm:outbound-endpoint path="classsubscription"
+						exchange-pattern="request-response" doc:name="GetClassSubscriptionSOAP" />
+				</binding>
+			</component>
+
+			<!-- <logger level="INFO" message="The payload collection is: #[payload]"
+				doc:name="Logger" /> -->
+			<collection-splitter doc:name="Collection Splitter" />
+			<!-- <logger level="INFO" message=" email is: #[payload.email]"
+				doc:name="Logger" /> -->
+			<message-properties-transformer
+				doc:name="Message Properties">
+				<add-message-property key="mailToAddress"
+					value="#[payload.email]" />
+			</message-properties-transformer>
+			<!-- <logger level="INFO"
+				message="mailToAddress: #[header:OUTBOUND:mailToAddress]" doc:name="Logger" />
+ -->
+			<set-payload
+				value="Hello #[payload.fullName], your class '#[payload.className]' starts in #[payload.timeTo] minutes."
+				doc:name="Set Payload" />
+			<smtp:outbound-endpoint host="${smtp.host}"
+				user="${smtp.username}" password="${smtp.password}" responseTimeout="10000"
+				subject="**TESTING** Class Alert!" from="${email.from}"
+				to="#[header:OUTBOUND:mailToAddress]" doc:name="SMTP" port="${smtp.port}" />
+
+		</foreach>
+
+	</flow>
+	<flow name="GetClassSubscriptionSOAP" doc:name="GetClassSubscriptionSOAP">
+		<vm:inbound-endpoint path="classsubscription"
+			exchange-pattern="request-response" doc:name="GetClassSubscriptionSOAP" />
+		<echo-component doc:name="One hour queue arrival" />
+		<logger level="INFO" doc:name="Logger" />
+        
+            <processor-chain doc:name="Processor Chain">
+                <cxf:jaxws-client operation="getClassSubscription" serviceClass="edu.rit.notification.service.StudentInformationService" doc:name="SOAP"/>
+                <http:outbound-endpoint host="${sis.host}" port="${sis.port}" path="SIS/StudentInformationService" doc:name="HTTP"/>
+            </processor-chain>
+        
+	</flow>
+
+
+
+</mule>

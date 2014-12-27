@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://service.notification.rit.edu/" targetNamespace="http://service.notification.rit.edu/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="classSchedule" type="tns:classSchedule" />
+  <xs:element name="course" type="tns:course" />
+  <xs:element name="getClassEnrollement" type="tns:getClassEnrollement" />
+  <xs:element name="getClassEnrollementResponse" type="tns:getClassEnrollementResponse" />
+  <xs:element name="getClassScheduleForToday" type="tns:getClassScheduleForToday" />
+  <xs:element name="getClassScheduleForTodayResponse" type="tns:getClassScheduleForTodayResponse" />
+  <xs:element name="getClassSchedules" type="tns:getClassSchedules" />
+  <xs:element name="getClassSchedulesResponse" type="tns:getClassSchedulesResponse" />
+  <xs:element name="getClassSubscription" type="tns:getClassSubscription" />
+  <xs:element name="getClassSubscriptionResponse" type="tns:getClassSubscriptionResponse" />
+  <xs:element name="getStudentCourses" type="tns:getStudentCourses" />
+  <xs:element name="getStudentCoursesResponse" type="tns:getStudentCoursesResponse" />
+  <xs:element name="getStudentEnrollement" type="tns:getStudentEnrollement" />
+  <xs:element name="getStudentEnrollementResponse" type="tns:getStudentEnrollementResponse" />
+  <xs:element name="getStudentProfile" type="tns:getStudentProfile" />
+  <xs:element name="getStudentProfileResponse" type="tns:getStudentProfileResponse" />
+  <xs:element name="getStudentSubscription" type="tns:getStudentSubscription" />
+  <xs:element name="getStudentSubscriptionResponse" type="tns:getStudentSubscriptionResponse" />
+  <xs:element name="request" type="tns:request" />
+  <xs:element name="response" type="tns:response" />
+  <xs:element name="student" type="tns:student" />
+  <xs:element name="subscribe" type="tns:subscribe" />
+  <xs:element name="subscribe2" type="tns:subscribe2" />
+  <xs:element name="subscribe2Response" type="tns:subscribe2Response" />
+  <xs:element name="subscribeResponse" type="tns:subscribeResponse" />
+  <xs:element name="subscriptionRequest" type="tns:subscriptionRequest" />
+  <xs:element name="subscriptionResponse" type="tns:subscriptionResponse" />
+  <xs:complexType name="subscribe">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:subscriptionRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscriptionRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:request">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="classNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="studentId" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="request" abstract="true">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="subscribeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:subscriptionResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscriptionResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="response" abstract="true">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getClassEnrollement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="classNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getClassEnrollementResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:student" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="student">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="firstname" type="xs:string" />
+      <xs:element minOccurs="0" name="lastname" type="xs:string" />
+      <xs:element minOccurs="0" name="major" type="xs:string" />
+      <xs:element minOccurs="0" name="phone" type="xs:string" />
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentEnrollement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentEnrollementResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:classSchedule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="classSchedule">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="classFormat" type="xs:string" />
+      <xs:element minOccurs="0" name="classNumber" type="xs:string" />
+      <xs:element minOccurs="0" ref="tns:course" />
+      <xs:element minOccurs="0" name="days" type="xs:string" />
+      <xs:element minOccurs="0" name="endTime" type="xs:string" />
+      <xs:element minOccurs="0" name="instructor" type="xs:string" />
+      <xs:element minOccurs="0" name="startTime" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="course">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="courseNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="describtion" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentSubscription">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentSubscriptionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:classSchedule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getClassScheduleForToday">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getClassScheduleForTodayResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:classSchedule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentCourses">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentCoursesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:course" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentProfile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStudentProfileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:student" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getClassSubscription">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="classNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getClassSubscriptionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:student" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscribe2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="uid" type="xs:string" />
+      <xs:element minOccurs="0" name="cno" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscribe2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:subscriptionResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getClassSchedules">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getClassSchedulesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:classSchedule" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

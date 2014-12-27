@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="Subscribtion">
+    <global-element name="Active MQ" type="org.mule.tooling.ui.modules.core.global.activemq.config" entity-id="Active MQ#1">
+        <properties>
+            <property name="jndiProviderUrl"/>
+            <property name="embeddedMode"/>
+            <property name="redeliveryHandlerFactory-ref"/>
+            <property name="connectionFactory-ref"/>
+            <property name="maxRedelivery" value="3"/>
+            <property name="durable"/>
+            <property name="password" value="${activemq.password}"/>
+            <property name="username" value="${activemq.user}"/>
+            <property name="name" value="Active_MQ"/>
+            <property name="dynamicNotification"/>
+            <property name="noLocal"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="eagerConsumer"/>
+            <property name="numberOfConsumers"/>
+            <property name="acknowledgementMode"/>
+            <property name="jndiInitialFactory"/>
+            <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/jms/activemq-connector"/>
+            <property name="validateConnections" value="true"/>
+            <property name="disableTemporaryReplyToDestinations"/>
+            <property name="clientId"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="persistentDelivery"/>
+            <property name="forceJndiDestinations"/>
+            <property name="connectionFactoryJndiName"/>
+            <property name="brokerURL" value="${activemq.brokerURL}"/>
+            <property name="specification"/>
+            <property name="jndiDestinations"/>
+            <property name="honorQosHeaders"/>
+            <property name="cacheJmsSessions"/>
+            <property name="jndiProviderProperties-ref"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="SubscribtionFlow" entity-id="a862b910-40d5-4c18-aeeb-0715a0195e66">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="initialState"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="2"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="${mule.port}"/>
+                    <property name="host" value="${mule.host}"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property name="address"/>
+                    <property name="path" value="${mule.notification.path}"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern name="Body to Parameter Map" type="http://www.mulesoft.org/schema/mule/http/body-to-parameter-map-transformer" entity-id="Body to Parameter Map#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="mimeType"/>
+                </properties>
+            </pattern>
+            <pattern name="Echo" type="org.mule.tooling.ui.modules.core.pattern.echo" entity-id="Echo#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="auxiliary;index" value="5"/>
+                </properties>
+            </pattern>
+            <pattern name="create subscription request" type="http://www.mulesoft.org/schema/mule/core/expression-component" entity-id="Expression#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="expression" value="&#xA;&#x9;&#x9;&#x9;import&#xA;&#x9;&#x9;&#x9;edu.rit.notification.model.SubscriptionRequest;&#xA;&#xA;&#x9;&#x9;&#x9;payload = new&#xA;&#x9;&#x9;&#x9;SubscriptionRequest(payload['uid'], payload['classnumber']);&#xA;&#xA;&#x9;&#x9;"/>
+                    <property name="file"/>
+                    <property name="evaluator"/>
+                    <property name="auxiliary;index" value="6"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="JMS" type="http://www.mulesoft.org/schema/mule/jms/endpoint" entity-id="JMS#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="topic"/>
+                    <property name="queue" value="${queue.subscription}"/>
+                    <property name="durableName"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="disableTemporaryReplyToDestinations"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="7"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="connector-ref" value="Active_MQ"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="SubscribtionFlow1" entity-id="67e9c08e-e9ce-4b93-b574-927855efa0b2">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="initialState"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="8"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="8081"/>
+                    <property name="host" value="localhost"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="auxiliary;index" value="9"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern name="Set Payload" type="http://www.mulesoft.org/schema/mule/core/set-payload" entity-id="Set Payload#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="value" value="Welcome to Distributed Notification System"/>
+                    <property name="auxiliary;index" value="10"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Notification" soapui-version="4.6.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SubscriptionImplServiceSoapBinding" type="wsdl" bindingName="{http://impl.service.notification.rit.edu/}SubscriptionImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/Notification?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/Notification?wsdl"><con:part><con:url>http://localhost:8081/Notification?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SubscriptionImplService" targetNamespace="http://impl.service.notification.rit.edu/" xmlns:ns1="http://service.notification.rit.edu/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.service.notification.rit.edu/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://localhost:8081/Notification?wsdl=Subscription.wsdl" namespace="http://service.notification.rit.edu/"></wsdl:import>
+  <wsdl:binding name="SubscriptionImplServiceSoapBinding" type="ns1:Subscription">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="subscribe">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="subscribe">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="subscribeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SubscriptionImplService">
+    <wsdl:port binding="tns:SubscriptionImplServiceSoapBinding" name="SubscriptionImplPort">
+      <soap:address location="http://localhost:8081/Notification"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8081/Notification?wsdl=Subscription.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="Subscription" targetNamespace="http://service.notification.rit.edu/" xmlns:ns1="http://service.notification.rit.edu/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://service.notification.rit.edu/" version="1.0" xmlns:tns="http://service.notification.rit.edu/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="subscribe" type="tns:subscribe"/>
+      <xs:element name="subscribeResponse" type="tns:subscribeResponse"/>
+      <xs:complexType name="subscribe">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:subscriptionRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="subscriptionRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="classNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="studentId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="subscribeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:subscriptionResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="subscriptionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="subscribeResponse">
+    <wsdl:part element="ns1:subscribeResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subscribe">
+    <wsdl:part element="ns1:subscribe" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Subscription">
+    <wsdl:operation name="subscribe">
+      <wsdl:input message="ns1:subscribe" name="subscribe"></wsdl:input>
+      <wsdl:output message="ns1:subscribeResponse" name="subscribeResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/Notification</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="subscribe" bindingOperationName="subscribe" type="Request-Response" outputName="subscribeResponse" inputName="subscribe" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/Notification/subscribe</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.notification.rit.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:subscribe>
+         <!--Optional:-->
+         <arg0>
+            <!--Optional:-->
+            <classNumber>123456</classNumber>
+            <!--Optional:-->
+            <studentId>990001234</studentId>
+         </arg0>
+      </ser:subscribe>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.notification.rit.edu/Subscription/subscribe"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="StudentInfoSysImplServiceSoapBinding" type="wsdl" bindingName="{http://impl.service.notification.rit.edu/}StudentInfoSysImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:18080/Notification/SISService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:18080/Notification/SISService?wsdl"><con:part><con:url>http://localhost:18080/Notification/SISService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="StudentInfoSysImplService" targetNamespace="http://impl.service.notification.rit.edu/" xmlns:ns1="http://service.notification.rit.edu/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.service.notification.rit.edu/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://localhost:18080/Notification/SISService?wsdl=StudentInfoSys.wsdl" namespace="http://service.notification.rit.edu/"></wsdl:import>
+  <wsdl:binding name="StudentInfoSysImplServiceSoapBinding" type="ns1:StudentInfoSys">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getStudentProfile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getStudentProfile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getStudentProfileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="studentIsEnrolled">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="studentIsEnrolled">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="studentIsEnrolledResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StudentInfoSysImplService">
+    <wsdl:port binding="tns:StudentInfoSysImplServiceSoapBinding" name="StudentInfoSysImplPort">
+      <soap:address location="http://localhost:18080/Notification/SISService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:18080/Notification/SISService?wsdl=StudentInfoSys.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="StudentInfoSys" targetNamespace="http://service.notification.rit.edu/" xmlns:ns1="http://service.notification.rit.edu/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://service.notification.rit.edu/" version="1.0" xmlns:tns="http://service.notification.rit.edu/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getStudentProfile" type="tns:getStudentProfile"/>
+      <xs:element name="getStudentProfileResponse" type="tns:getStudentProfileResponse"/>
+      <xs:element name="studentIsEnrolled" type="tns:studentIsEnrolled"/>
+      <xs:element name="studentIsEnrolledResponse" type="tns:studentIsEnrolledResponse"/>
+      <xs:complexType name="getStudentProfile">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getStudentProfileResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:student"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="student">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="uId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="studentIsEnrolled">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="studentIsEnrolledResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getStudentProfileResponse">
+    <wsdl:part element="ns1:getStudentProfileResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStudentProfile">
+    <wsdl:part element="ns1:getStudentProfile" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="studentIsEnrolled">
+    <wsdl:part element="ns1:studentIsEnrolled" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="studentIsEnrolledResponse">
+    <wsdl:part element="ns1:studentIsEnrolledResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="StudentInfoSys">
+    <wsdl:operation name="getStudentProfile">
+      <wsdl:input message="ns1:getStudentProfile" name="getStudentProfile"></wsdl:input>
+      <wsdl:output message="ns1:getStudentProfileResponse" name="getStudentProfileResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="studentIsEnrolled">
+      <wsdl:input message="ns1:studentIsEnrolled" name="studentIsEnrolled"></wsdl:input>
+      <wsdl:output message="ns1:studentIsEnrolledResponse" name="studentIsEnrolledResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:18080/Notification/SISService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="getStudentProfile" bindingOperationName="getStudentProfile" type="Request-Response" outputName="getStudentProfileResponse" inputName="getStudentProfile" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:18080/Notification/SISService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.notification.rit.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:getStudentProfile>
+         <!--Optional:-->
+         <arg0>990001234</arg0>
+      </ser:getStudentProfile>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.notification.rit.edu/StudentInfoSys/getStudentProfile"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="studentIsEnrolled" bindingOperationName="studentIsEnrolled" type="Request-Response" outputName="studentIsEnrolledResponse" inputName="studentIsEnrolled" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:18080/Notification/SISService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.notification.rit.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:studentIsEnrolled>
+         <!--Optional:-->
+         <arg0>?</arg0>
+         <!--Optional:-->
+         <arg1>?</arg1>
+      </ser:studentIsEnrolled>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.notification.rit.edu/StudentInfoSys/studentIsEnrolled"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

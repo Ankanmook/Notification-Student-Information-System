@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="OnceADayPolling">
+    <global-element name="Quartz" type="http://www.mulesoft.org/schema/mule/quartz/connector" entity-id="Quartz#1">
+        <properties>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="name" value="Quartz"/>
+            <property name="validateConnections" value="true"/>
+            <property name="dynamicNotification"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="scheduler-ref"/>
+        </properties>
+    </global-element>
+    <global-element name="Import" type="http://www.springframework.org/schema/beans/import" entity-id="Import#1">
+        <properties>
+            <property name="resource" value="classpath:spring-config.xml"/>
+            <property name="auxiliary;wrappedIn" value="beans@spring@http://www.springframework.org/schema/beans"/>
+            <property name="auxiliary;wrapIn" value="2"/>
+            <property name="auxiliary;index" value="3"/>
+        </properties>
+    </global-element>
+    <global-element name="Queued Asynchronous Processing Strategy" type="http://www.mulesoft.org/schema/mule/core/queued-asynchronous-processing-strategy" entity-id="Queued Asynchronous Processing Strategy#1">
+        <properties>
+            <property name="maxBufferSize"/>
+            <property name="poolExhaustedAction"/>
+            <property name="threadWaitTimeout"/>
+            <property name="minThreads"/>
+            <property name="name" value="allow10Threads"/>
+            <property name="maxThreads" value="10"/>
+            <property name="queueTimeout"/>
+            <property name="threadTTL"/>
+            <property name="auxiliary;index" value="4"/>
+            <property name="maxQueueSize"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="DaillyPoll" entity-id="42243579-8571-420b-881e-ed167d2ed4ec">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="initialState"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="5"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <multi-source index="0" name="Composite Source" type="http://www.mulesoft.org/schema/mule/core/composite-source" entity-id="Composite Source#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="auxiliary;index" value="6"/>
+                </properties>
+                <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="DaillyClassScheduleWorker" type="http://www.mulesoft.org/schema/mule/quartz/endpoint" entity-id="Quartz#2">
+                    <graphicalData x="0" y="0" width="0" height="0"/>
+                    <properties>
+                        <property name="businessEventsLabel"/>
+                        <property name="repeatCount"/>
+                        <property name="disableTransportTransformer"/>
+                        <property name="jobName" value="DaillyClassScheduleWorker"/>
+                        <property name="exchange-pattern" value="one-way"/>
+                        <property name="tracking:enable-default-events"/>
+                        <property name="ref"/>
+                        <property name="transformer-refs"/>
+                        <property name="repeatInterval"/>
+                        <property name="address"/>
+                        <property name="startDelay"/>
+                        <property name="encoding"/>
+                        <property name="cronExpression" value="0 0 0 * * ?"/>
+                        <property name="auxiliary;index" value="7"/>
+                        <property name="mimeType"/>
+                        <property name="responseTimeout"/>
+                        <property name="connector-ref"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/event-generator-job;0">
+                            <property name="auxiliary;index" value="8"/>
+                            <property name="auxiliary;wrapIn" value="8"/>
+                        </property-collection>
+                    </properties>
+                </endpoint>
+                <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="FirstTimeJob" type="http://www.mulesoft.org/schema/mule/quartz/endpoint" entity-id="Quartz#3">
+                    <graphicalData x="0" y="0" width="0" height="0"/>
+                    <properties>
+                        <property name="businessEventsLabel"/>
+                        <property name="repeatCount" value="0"/>
+                        <property name="disableTransportTransformer"/>
+                        <property name="jobName" value="FirstTimeJob"/>
+                        <property name="exchange-pattern" value="one-way"/>
+                        <property name="tracking:enable-default-events"/>
+                        <property name="ref"/>
+                        <property name="transformer-refs"/>
+                        <property name="repeatInterval" value="10000"/>
+                        <property name="address"/>
+                        <property name="startDelay"/>
+                        <property name="encoding"/>
+                        <property name="cronExpression"/>
+                        <property name="auxiliary;index" value="9"/>
+                        <property name="mimeType"/>
+                        <property name="responseTimeout"/>
+                        <property name="connector-ref"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/event-generator-job;0">
+                            <property name="auxiliary;index" value="10"/>
+                            <property name="auxiliary;wrapIn" value="10"/>
+                        </property-collection>
+                    </properties>
+                </endpoint>
+            </multi-source>
+            <scope name="Processor Chain" type="http://www.mulesoft.org/schema/mule/core/processor-chain" entity-id="Processor Chain#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="auxiliary;index" value="11"/>
+                </properties>
+                <compartment entity-id="compartment#1">
+                    <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
+                        <pattern name="SOAP" type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" entity-id="SOAP#1">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="wsdlLocation"/>
+<property name="port"/>
+<property name="serviceClass" value="edu.rit.notification.service.StudentInformationService"/>
+<property name="operation" value="getClassScheduleForToday"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client"/>
+<property name="mtomEnabled"/>
+<property name="enableMuleSoapHeaders"/>
+<property name="clientClass"/>
+<property name="configuration-ref"/>
+<property name="auxiliary;index" value="12"/>
+<property name="decoupledEndpoint"/>
+                            </properties>
+                        </pattern>
+                        <endpoint direction="Outbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="port" value="${sis.port}"/>
+<property name="host" value="${sis.host}"/>
+<property name="businessEventsLabel"/>
+<property name="followRedirects"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+<property name="keep-alive"/>
+<property name="contentType"/>
+<property name="disableTransportTransformer"/>
+<property name="password"/>
+<property name="exchange-pattern"/>
+<property name="tracking:enable-default-events"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="httpLabel"/>
+<property name="address"/>
+<property name="path" value="SIS/StudentInformationService"/>
+<property name="encoding"/>
+<property name="responseTransformer-refs"/>
+<property name="method"/>
+<property name="user"/>
+<property name="auxiliary;index" value="13"/>
+<property name="responseTimeout"/>
+<property name="mimeType"/>
+<property name="connector-ref"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="Java#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property name="auxiliary;index" value="14"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/spring-object;0">
+                        <property name="bean" value="oneHourPoller"/>
+                        <property name="auxiliary;index" value="15"/>
+                        <property name="auxiliary;wrapIn" value="15"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="JITPoll" entity-id="be47e9e6-071f-4568-a795-ce89e645abaf">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="initialState"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="16"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#3">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="JITClassScheduleWorker" type="http://www.mulesoft.org/schema/mule/quartz/endpoint" entity-id="Quartz#4">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="businessEventsLabel"/>
+                    <property name="repeatCount"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="jobName" value="JITClassScheduleWorker"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="repeatInterval" value="${poll.perminute}"/>
+                    <property name="address"/>
+                    <property name="startDelay"/>
+                    <property name="encoding"/>
+                    <property name="cronExpression"/>
+                    <property name="auxiliary;index" value="17"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="connector-ref"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/event-generator-job;0">
+                        <property name="auxiliary;index" value="18"/>
+                        <property name="auxiliary;wrapIn" value="18"/>
+                    </property-collection>
+                </properties>
+            </endpoint>
+            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="Java#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property name="auxiliary;index" value="19"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/spring-object;0">
+                        <property name="bean" value="oneHourPoller"/>
+                        <property name="auxiliary;index" value="24"/>
+                        <property name="auxiliary;wrapIn" value="24"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

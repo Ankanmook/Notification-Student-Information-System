@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core"
+	version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/1.0/mule-sqs.xsd">
+
+
+
+	<jms:activemq-connector name="Active_MQ"
+		username="${activemq.user}" password="${activemq.password}" brokerURL="${activemq.brokerURL}"
+		validateConnections="true" doc:name="Active MQ" maxRedelivery="3" />
+	<flow name="SubscribtionFlow" doc:name="SubscribtionFlow">
+		<http:inbound-endpoint exchange-pattern="request-response"
+			host="${mule.host}" port="${mule.port}" path="${mule.notification.path}"
+			doc:name="HTTP" />
+		<http:body-to-parameter-map-transformer
+			doc:name="Body to Parameter Map" />
+
+		<echo-component doc:name="Echo" />
+
+		<expression-component doc:name="create subscription request">
+			import
+			edu.rit.notification.model.SubscriptionRequest;
+
+			payload = new
+			SubscriptionRequest(payload['uid'], payload['classnumber']);
+
+		</expression-component>
+
+		<jms:outbound-endpoint queue="${queue.subscription}"
+			exchange-pattern="request-response" connector-ref="Active_MQ"
+			doc:name="JMS"/>
+				 
+
+	</flow>
+	<flow name="SubscribtionFlow1" doc:name="SubscribtionFlow1">
+		<http:inbound-endpoint exchange-pattern="request-response"
+			host="localhost" port="8081" doc:name="HTTP" />
+		<set-payload value="Welcome to Distributed Notification System"
+			doc:name="Set Payload" />
+	</flow>
+
+
+</mule>

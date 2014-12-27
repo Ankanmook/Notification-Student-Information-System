@@ -1,0 +1,56 @@
+Classroom 
+12345 
+334 
+Empirical SE 
+TuTh 
+10:15 AM 
+Andy Meneley
+09:00 AM
+Classroom
+23456 
+394
+Requirements Engineering
+MoWeFr
+09:50 AM
+Hawker 
+09:00 AM
+Classroom
+34567
+524
+Process Engineering & Env
+TuTh
+04:50 PM
+Hawker
+04:00 PM
+Classroom
+45678
+649
+Foundations of SE
+MoWe
+09:50 AM
+Michael Lutz
+08:00 AM
+Classroom
+54321
+512 
+Research Methods
+MoWe 
+05:15 PM
+Wei Lei
+04:00 PM
+Classroom
+56789
+334
+Empirical SE
+MoTh
+10:00 PM
+Andy
+09:00 PM
+Classroom
+67890
+524
+Process Engineering & Env
+MoWeFr
+11:00 PM
+Raj
+10:00 PM

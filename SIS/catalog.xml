@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/SIS/StudentInformationService?wsdl" uri="src/conf/xml-resources/web-services/SIS/wsdl/localhost_8080/SIS/StudentInformationService.wsdl"/>
+    <system systemId="http://localhost:8080/SIS/StudentInformationService?xsd=1" uri="src/conf/xml-resources/web-services/SIS/wsdl/localhost_8080/SIS/StudentInformationService.xsd_1.xsd"/>
+</catalog>
