@@ -21,9 +21,11 @@ of transactions concurrently therefore scalability was also an underpinning fact
 ARCHITECTURE
 The system design is based on a distributed multi-tiered and service oriented architecture (SOA).
 Client Tier | Developed in: C#, WCF
+
 The client tier consists of a light weight web frontend run- ning on laptops and mobile devices to access services in the
 business tier. 
 Business Tier | Developed in: Java
+
 This tier consists of SOAP web service endpoints which implements the subscription and noti cation services. 
 The subscription service receives subscription requests from the client side and places the request on a queue for 
 processing, and the noti cation services delivers message alert to the client as events occur. We implemented a system
@@ -31,6 +33,7 @@ that mimics SIS (mini SIS) as another web endpoint that pro- vides course catalo
 service.
 
 Enterprise Information System Tier (EIS) | Developed in: Java, MySQL
+
 The EIS tier consists of a database system as the main source of data.
 The architecture is supported by a lightweight enterprise service bus (ESB) middleware to provide application integration,
 message routing capability, publish/subscribe func- tionality, load balancing, and communication protocols ab- straction. 
